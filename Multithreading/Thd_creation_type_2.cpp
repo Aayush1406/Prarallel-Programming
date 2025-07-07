@@ -44,21 +44,29 @@ int main(){
 
 // 3. non static member function
 
+#include<bits/stdc++.h>
+using namespace std;
+
 class Test{
 
     public:
-        void f(int x){
-            cout<<"f is running = "<<x<<endl;
+        bool fun(){
+            cout<<"Hello Aayush !";
+
+            return true;
         }
 
 };
 
+
 int main(){
 
     Test t;
-
-    thread t1(&Test::f, &t, 10);
+    bool ans;
+    
+    thread t1([&t, &ans](){ans = t.fun();}); //imp to pass t as ref else pass by val is treated as const in lambda so t will also be const so fun() has to be const also !
     t1.join();
+    cout<<ans<<endl;
 
     return 0;
 }
