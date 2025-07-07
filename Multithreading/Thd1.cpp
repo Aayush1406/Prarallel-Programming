@@ -56,3 +56,46 @@ int main(){
     return 0;
 }
 
+// Thread calling function with a return type inside a lambda
+#include<bits/stdc++.h>
+using namespace std;
+
+int s1 = 0, s2 = 0;
+
+int oddsum(int n){
+
+    for(int i=1;i<=n;i++){
+        if(i%2==1){
+            s1+=i;
+        }
+    }
+
+    return s1;
+
+}
+
+int evensum(int n){
+
+    for(int i=1;i<=n;i++){
+        if(i%2==0){
+            s2+=i;
+        }
+    }
+
+    return s2;
+}
+
+int main(){
+
+    int oddans, evenans, n = 10;
+    thread t1([&oddans,n](){ oddans = oddsum(n);});
+    thread t2([&evenans,n](){evenans = evensum(n);});
+
+    t1.join();
+    t2.join();
+
+    cout<<oddans<<endl;
+    cout<<evenans<<endl;
+
+    return 0;
+}
